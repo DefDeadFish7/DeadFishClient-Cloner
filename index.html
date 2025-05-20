@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DeadFishClient Cloner</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #fff;
+      color: #0f0;
+      font-family: monospace;
+    }
+
+    h1 {
+      color: #f00;
+      text-align: center;
+      text-shadow: 0 0 10px #f00;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #f00;
+      border-radius: 8px;
+    }
+
+    iframe {
+			resize: both;
+			overflow: auto;
+			min-width: 200px;
+			min-height: 200px;
+			width: 100%;
+			height: 400px;
+			border: 2px solid #f00;
+			margin-top: 10px;
+			transition: opacity 0.3s ease;
+    }
+
+    input[type="text"] {
+      background: #fff;
+      color: #0f0;
+      border: 1px solid #f00;
+      padding: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .controls button {
+      background: #fff;
+      color: #f00;
+      border: 1px solid #f00;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .controls span {
+      color: #f00;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>DeadFishClient Cloner</h1>
+  <div class="container">
+    <div class="panel">
+      <input type="text" id="url1" placeholder="Enter URL for Frame 1" />
+      <div class="controls">
+        <button onclick="changeOpacity('iframe1', -0.1)">-</button>
+        <span id="opacity1">Opacity: 0.1</span>
+        <button onclick="changeOpacity('iframe1', 0.1)">+</button>
+      </div>
+      <iframe id="iframe1" src="" style="opacity:0.1"></iframe>
+    </div>
+    <div class="panel">
+      <input type="text" id="url2" placeholder="Enter URL for Frame 2" />
+      <div class="controls">
+        <button onclick="changeOpacity('iframe2', -0.1)">-</button>
+        <span id="opacity2">Opacity: 0.1</span>
+        <button onclick="changeOpacity('iframe2', 0.1)">+</button>
+      </div>
+      <iframe id="iframe2" src="" style="opacity:0.1"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const url1 = document.getElementById('url1');
+    const url2 = document.getElementById('url2');
+    const iframe1 = document.getElementById('iframe1');
+    const iframe2 = document.getElementById('iframe2');
+    const opacity1 = document.getElementById('opacity1');
+    const opacity2 = document.getElementById('opacity2');
+
+    url1.addEventListener('change', () => {
+      iframe1.src = url1.value;
+    });
+
+    url2.addEventListener('change', () => {
+      iframe2.src = url2.value;
+    });
+
+    function changeOpacity(iframeId, delta) {
+      const iframe = document.getElementById(iframeId);
+      let currentOpacity = parseFloat(iframe.style.opacity);
+      let newOpacity = Math.min(1.0, Math.max(0.0, currentOpacity + delta));
+      iframe.style.opacity = newOpacity.toFixed(2);
+      document.getElementById(
+        iframeId === 'iframe1' ? 'opacity1' : 'opacity2'
+      ).innerText = `Opacity: ${newOpacity.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
+
